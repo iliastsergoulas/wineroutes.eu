@@ -59,7 +59,6 @@
         document.getElementById('header2').innerHTML=names[1];
         document.getElementById('header3').innerHTML=names[37];
         document.getElementById('header4').innerHTML=names[2];
-        document.getElementById('header5').innerHTML=names[3];
         document.getElementById('header6').innerHTML=names[4];
         document.getElementById('title1').innerHTML=names[5];
         document.getElementById('title2').innerHTML=names[6];
@@ -79,26 +78,25 @@
         document.getElementById('char12').innerHTML=names[19];
         document.getElementById('char13').innerHTML=names[20];
         document.getElementById('char14').innerHTML=names[21];
-        document.getElementById('char15').innerHTML=names[22];  
-        document.getElementById('char16').innerHTML=names[23];
+        //document.getElementById('char15').innerHTML=names[22];  
+        //document.getElementById('char16').innerHTML=names[23];
         //document.getElementById('char17').innerHTML=names[24];
         document.getElementById('char18').innerHTML=names[38];
         document.getElementById('char19').innerHTML=names[39];
         //document.getElementById('char20').innerHTML=names[40];
-        document.getElementById('char21').innerHTML=names[41];
+        //document.getElementById('char21').innerHTML=names[41];
         //document.getElementById('char22').innerHTML=names[42];
-        document.getElementById('char23').innerHTML=names[43];
-        document.getElementById('char24').innerHTML=names[44];
-        document.getElementById('sales1').innerHTML=names[26];
-        document.getElementById('sales2').innerHTML=names[27];
+        //document.getElementById('char23').innerHTML=names[43];
+        //document.getElementById('char24').innerHTML=names[44];
+        //document.getElementById('sales1').innerHTML=names[26];
+        //document.getElementById('sales2').innerHTML=names[27];
         document.getElementById('sales3').innerHTML=names[28];
         document.getElementById('sales4').innerHTML=names[29];
         document.getElementById('contact1').innerHTML=names[30];
         document.getElementById('contact2').innerHTML=names[31];
         document.getElementById('contact5').innerHTML=names[36];
-        document.getElementById('sales5').innerHTML=names[45];
-        document.getElementById('sales6').innerHTML=names[46];
-        document.getElementById('header7').innerHTML=names[47];
+        //document.getElementById('sales5').innerHTML=names[45];
+        //document.getElementById('sales6').innerHTML=names[46];
       };
     };
     var names;
@@ -111,7 +109,17 @@
     ];
   </script>
   <style>
-    iframe{width: 49%;}
+    .imglink {position: relative;}
+    .text-block {
+      font-size:1.1em;
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      background-color: black;
+      color: white;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
   </style>
 </head>
 
@@ -122,7 +130,7 @@
       <!--nav-->
       <nav class="nav navbar-default navbar-fixed-top">
         <div class="container">
-          <div class="col-md-12">
+          <div class="col-12">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar"><span class="fa fa-bars"></span></button>
             </div>
@@ -131,9 +139,7 @@
                 <li class="active"><a href="#header" id="header1"></a></li>
                 <li><a href="#feature" id="header2"></a></li>
                 <li><a href="#photos" id="header3"></a></li>
-                <li><a href="#books" id="header4"></a></li>
-                <li><a href="#accessories" id="header7"></a></li>
-                <li><a href="#courses" id="header5"></a></li>
+                <li><a href="#winestuff" id="header4"></a></li>
                 <li><a href="#contact" id="header6"></a></li>
                 <li><img id="greek" width="75%" height="50%" src="img/gr.png" alt="Ελληνικά"/></li>
                 <li><img id="english" width="70%" height="50%" src="img/en.png" alt="English"/></li>
@@ -145,9 +151,10 @@
       <!--/ nav-->
       <div class="container text-center">
         <div class="wrapper wow fadeInUp">
-          <h3 class="title" id="title1"></h3>
+          <div>
+            <h3 class="title d-inline-block" id="title1"></h3>
+          </div>
           <h4 class="sub-title" id="title2"></h4>
-          <img src="img/logo.png" width="30%" height="30%"/>
         </div>
       </div>
     </div>
@@ -160,15 +167,6 @@
         <div class="cta-info text-center">
           <h3 id="saying1"></h3>
         </div>
-      </div>
-    </div>
-  </section>
-  <!---->
-  <section class="section-padding wow fadeInUp" id="videos">
-    <div class="container">
-      <div class="row no-gutters">
-        <iframe id="ytplayer" type="text/html" width="516" height="360" src="https://www.youtube.com/embed/HDOKUvqhhXM?autoplay=1&origin=http://example.com" frameborder="0"></iframe>
-        <iframe id="ytplayer" type="text/html" width="516" height="360" src="https://www.youtube.com/embed/OAuDwQ8ZC5w?autoplay=1&origin=http://example.com" frameborder="0"></iframe>
       </div>
     </div>
   </section>
@@ -255,69 +253,58 @@
         </div>
         <div class="col-md-3 col-sm-12">
           <div class="section-title">
-            <img id="screenshot1" width="75%" height="50%" src="img/screenshot1.png" alt="Ελληνικά"/>
+            <img id="screenshot1" width="75%" height="50%" src="img/screenshot_1.png" alt="Ελληνικά"/>
           </div>
         </div>
         <div class="col-md-3 col-sm-12">
           <div class="section-title">
-            <img id="screenshot2" width="75%" height="50%" src="img/screenshot2.png" alt="Ελληνικά"/>
+            <img id="screenshot2" width="75%" height="50%" src="img/screenshot_2.png" alt="Ελληνικά"/>
           </div>
         </div>
         <div class="col-md-3 col-sm-12">
           <div class="section-title">
-            <img id="screenshot3" width="75%" height="50%" src="img/screenshot3.png" alt="Ελληνικά"/>
+            <img id="screenshot3" width="75%" height="50%" src="img/screenshot_3.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <a href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="100%" height="100%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <img id="screenshot4" width="75%" height="50%" src="img/screenshot_4.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <img id="screenshot6" width="75%" height="50%" src="img/screenshot_6.png" alt="Ελληνικά"/>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <img id="screenshot7" width="75%" height="50%" src="img/screenshot_7.png" alt="Ελληνικά"/>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <!---->
   <!---->
   <section class="section-padding parallax bg-image-2 section wow fadeIn" id="cta-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="cta-txt">
-            <h3 id="char15"></h3>
-            <p id="char16"></p>
-          </div>
-          <a href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="50%" height="50%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
-        </div>
-        <div class="col-md-4 text-center">
-          <a href="https://wine-routes.en.aptoide.com/?store_name=agristats&app_id=44306845" class="btn btn-submit" style="display:block;" id="char21"></a>
-          <a href="www.getjar.mobi/mobile/967845/Wine-Routes" class="btn btn-submit" style="display:block;" id="char23"></a>
-          <a href="https://wine-routes.en.uptodown.com/android" class="btn btn-submit" style="display:block;" id="char24"></a>
-        </div>
-      </div>
+    <div class="container text-center">
+      <script type="text/javascript" src="http://cdn.refersion.com/creative.js"></script>
+      <script>$rfsn_creative.generate('refersion_client/9975/creatives/dynamic/22075-5a408dc42bdf54dea7d3f878d38adc92.json', {
+        aid: '3180637.8a5c478'
+      });</script><div id="rfsn_img_22075"></div>
     </div>
-  </section>
-  <!---->
-  <section id="cta-1_1">
-    <div class="container">
-      <div class="row">
-        <div class="cta-info text-center">
-          <h3 id="saying2"></h3>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!---->
-  <section class="section-padding wow fadeInUp" id="books">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-12">
-          <div class="section-title">
-            <h2 class="head-title" id="sales1"></h2>
-            <hr class="botm-line">
-            <p class="sec-para" id="sales2"></p>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-12">
-          <a target="_blank" href="https://www.amazon.com/gp/search?ie=UTF8&tag=agristats-20&linkCode=ur2&linkId=ff9f9c8c989dba20276fe5a124737dcd&camp=1789&creative=9325&index=books&keywords=wine"><img src="img/winebooks.jpg" width="100%" height="75%" border="0" alt=""/></a>
-      </div>
-    </div>
+
   </section>
   <!---->
   <section class="section-padding wow fadeInUp" id="courses">
+    <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-12">
           <div class="section-title">
@@ -334,24 +321,15 @@
       </div>
     </div>
   </section>
-  <!---->
-  <section class="section-padding wow fadeInUp" id="accessories">
+  <section id="cta-1_1">
     <div class="container">
       <div class="row">
-        <div class="col-md-3 col-sm-12">
-          <div class="section-title">
-            <h2 class="head-title" id="sales5"></h2>
-            <hr class="botm-line">
-            <p class="sec-para" id="sales6"></p>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-12">
-          <a target="_blank" href="https://www.amazon.com/gp/search?ie=UTF8&tag=agristats-20&linkCode=ur2&linkId=53bd73a480e1cd5e09abb42592e74d41&camp=1789&creative=9325&index=aps&keywords=wine"><img src="img/wineaccs.jpg" width="100%" height="50%" border="0" alt=""/></a>
+        <div class="cta-info text-center">
+          <h3 id="saying2"></h3>
         </div>
       </div>
     </div>
   </section>
-  <!---->
   <!---->
   <section class="section-padding wow fadeInUp" id="contact">
     <div class="container">
@@ -372,8 +350,8 @@
               <p class="white"><span aria-hidden="true" class="fa fa-twitter"></span><a target="_blank" href="https://twitter.com/winerouteseu" class="link-dec">https://twitter.com/winerouteseu</a></p>
               <p class="white"><span aria-hidden="true" class="fa fa-reddit"></span><a target="_blank" href="https://www.reddit.com/r/wineroutes/" class="link-dec">https://www.reddit.com/r/wineroutes/</a></p>
               <p class="white"><span aria-hidden="true" class="fa fa-tumblr"></span><a target="_blank" href="http://www.winerouteseu.tumblr.com" class="link-dec">http://www.winerouteseu.tumblr.com</a></p>
-              <p class="white"><span aria-hidden="true" class="fa fa-pinterest"></span><a target="_blank" href="https://gr.pinterest.com/agristatseu" class="link-dec">https://gr.pinterest.com/agristatseu</a></p>
-              <p class="white"><span aria-hidden="true" class="fa fa-linkedin"></span><a target="_blank" href="https://www.linkedin.com/in/iliastsergoulas/" class="link-dec">https://www.linkedin.com/in/iliastsergoulas/</a></p>
+              <p class="white"><span aria-hidden="true" class="fa fa-pinterest"></span><a target="_blank" href="https://gr.pinterest.com/agristatseu/wine-routes/" class="link-dec">https://gr.pinterest.com/agristatseu/wine-routes/</a></p>
+              <p class="white"><span aria-hidden="true" class="fa fa-linkedin"></span><a target="_blank" href="https://linkedin.com/company/wine-routes" class="link-dec">https://linkedin.com/company/wine-routes</a></p>
               <p class="white"><span aria-hidden="true" class="fa fa-github"></span><a target="_blank" href="https://github.com/iliastsergoulas" class="link-dec">https://github.com/iliastsergoulas</a></p>
             </div>
           </div>
@@ -391,16 +369,14 @@
   <footer class="" id="footer">
     <div class="container">
       <div class="row">
-        <div class="col-sm-3 footer-copyright">
+        <div class="col-sm-6 footer-copyright">
           © Bethany Theme - All rights reserved
           <div class="credits">
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
           </div>
         </div>
-        <div class="col-sm-6 footer-copyright text-center">
-          <a href="https://info.flagcounter.com/igsC"><img src="https://s05.flagcounter.com/count2/igsC/bg_FFFFFF/txt_000000/border_CCCCCC/columns_6/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-        </div>
-        <div class="col-sm-3 footer-copyright">
+
+        <div class="col-sm-6 footer-copyright">
           <div class="pull-right hidden-xs hidden-sm">
             © Wine Routes - All rights reserved
             <div class="credits">

@@ -66,21 +66,18 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-default .navbar-brand {
   color: #fff;
   font-size: 34px;
-  text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 2px;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
   color: #FFD34E;
-  text-transform: uppercase;
 	background-color: transparent;
 }
 
 .navbar-default .navbar-nav>li>a {
   color: #fff;
   padding: 10px 20px;
-  text-transform: uppercase;
 	background-color: transparent;
 }
 
@@ -117,7 +114,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 38px;
   letter-spacing: 4px;
   opacity: 1;
-  text-transform: uppercase;
 }
 
 .sub-title {
@@ -127,7 +123,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 71px;
   letter-spacing: 4px;
   opacity: 1;
-  text-transform: uppercase;
 }
 
 .title {
@@ -137,7 +132,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 88px;
   letter-spacing: 4px;
   opacity: 1;
-  text-transform: uppercase;
   padding: 25px 0px;
 }
 
@@ -187,6 +181,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /****/
+
+.heart {
+  fill: transparent;
+  transition: all .5s;
+}
+
+.heart-fill-up {
+  fill: red;
+}
+
+.lines {
+  display: none;
+}
+
+.lines-show {
+  fill: red;
+}
 
 #feature {
   background-color: #f8f8f8;
@@ -414,7 +425,7 @@ a, a:hover {
 
 @media (min-width: 451px) and (max-width: 900px) {
   .section-title {
-    margin-bottom: 15px;
+      margin-bottom: 15px;
   }
 }
 
