@@ -14,10 +14,10 @@
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/animate.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link type="text/css" rel="stylesheet" href="css/ol.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.css">
   <link type="text/css" rel="stylesheet" href="css/ol-ext.min.css">
-  <script src="js/ol.js" type="text/javascript"></script>
-  <script defer src="js/ol-ext.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.js"></script>
+  <script src="js/ol-ext.min.js" type="text/javascript"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101173631-2"></script>
   <script>
@@ -104,6 +104,165 @@
         document.getElementById('sales5').innerHTML=names[45];
         document.getElementById('sales6').innerHTML=names[46];
       };
+      var format = new ol.format.GeoJSON({
+          dataProjection: 'EPSG:4326',featureProjection: 'EPSG:3857'
+      });
+      var styleFunction = function (feature, layer) {
+        if (feature.getGeometry().getType()=='Point') {
+          var mystyle = new ol.style.Style({
+            fill: new ol.style.Fill({color: 'rgba(255,255,255,0.4)'}),
+            stroke: new ol.style.Stroke({color: '#3399CC',width: 1.25}),
+            text: new ol.style.Text({
+              font: '28px Calibri,sans-serif',fill: new ol.style.Fill({ color: '#000' }),
+              stroke: new ol.style.Stroke({color: '#fff', width: 2}),text: feature.get("nodeno").toString(),offsetY:30
+            })
+          })
+        } else if (feature.getGeometry().getType()=='LineString') {
+          var mystyle = new ol.style.Style({stroke: new ol.style.Stroke({color: 'green',width: 4})})
+        } else if (feature.getGeometry().getType()=='Circle') {
+          var mystyle = new ol.style.Style({
+            stroke: new ol.style.Stroke({color: 'red',width: 2}),
+            fill: new ol.style.Fill({color: 'rgba(255,0,0,0.2)'})
+          })
+        };
+          return mystyle;
+      };
+      function getStyle (feature, resolution){  
+        var size = feature.get('number');
+        if (size){
+          var style = styleCache[size];
+          if (!style){  
+            var color = size>1000 ? "80,0,86" : size>300 ? "139,60,73" : size>100 ? "0,128,0" : "255,128,0";
+            var radius = Math.max(7, Math.min(size*0.75, 13));
+            var dash = 2*Math.PI*radius/6;
+            var dash = [ 0, dash, dash, dash, dash, dash, dash ];
+            style = styleCache[size] = new ol.style.Style({ 
+              image: new ol.style.Circle({
+                radius: radius,
+                stroke: new ol.style.Stroke({
+                  color: "rgba("+color+",0.5)", 
+                  width: 15 ,
+                  lineDash: dash,
+                  lineCap: "butt"
+                }),
+                fill: new ol.style.Fill({color:"rgba("+color+",1)"})
+              }),
+              text: new ol.style.Text({
+                text: size.toString(),
+                fill: new ol.style.Fill({color: '#fff'})
+              })
+            });
+          }
+        } else {
+          var zoom = map.getView().getZoom();
+          var radius = zoom / 2 + 1;
+          var style = new ol.style.Style({
+            image: new ol.style.Circle({
+              radius: radius,
+              fill: new ol.style.Fill({color: '#ffa500'}),
+              stroke: new ol.style.Stroke({color: 'black', width: 1})
+            })
+          });
+        }
+        return [style];
+      };
+      var baselayer = new ol.layer.Tile({
+        name: "OSM",source: new ol.source.OSM(),zIndex: 1
+      });
+      /*var layer1 = new ol.layer.Tile({
+            name: "Vineyards",description:'vineyards',
+            source: new ol.source.TileWMS({
+          url: 'http://195.167.92.3:8080/geoserver/cite/wms',
+          params: {'LAYERS': 'cite:vineyards','STYLES':'vineyards','TILED': true},
+          serverType: 'geoserver'
+        }),zIndex:3
+      });*/
+      var view = new ol.View({
+        center: [1443026, 4456999],zoom: 2
+      });
+      var map = new ol.Map({
+        layers: [baselayer],
+        controls: ol.control.defaults({attribution:false}).extend([new ol.control.LayerSwitcher()]),
+        target: 'mylayers',loadTilesWhileAnimating: true,loadTilesWhileInteracting: true,
+        view: view
+      });
+      var text='';
+      var bbox=(ol.proj.transform(map.getView().calculateExtent(map.getSize()).splice(0, 2), 'EPSG:3857', 'EPSG:4326')).concat(ol.proj.transform(map.getView().calculateExtent(map.getSize()).splice(2, 4), 'EPSG:3857', 'EPSG:4326'));
+      var wineriesurl='https://app.wineroutes.eu/wineriesgeodata?bbox1='+bbox[0]+'&bbox2='+bbox[1]+'&bbox3='+bbox[2]+'&bbox4='+bbox[3]+'&zoom='+map.getView().getZoom()+'&text='+text;
+      $.ajax({
+        type:'POST',url:wineriesurl,cache:false,dataType:'json',
+        success: function(data) {
+          styleCache = {};
+          sessionStorage.setItem("wineriesgeodata", JSON.stringify(data));
+          var mywineriesdata = [];
+          JSON.parse(sessionStorage.wineriesgeodata).features.forEach(function(val) {  
+            mywineriesdata.push(val.properties);
+          });
+          sessionStorage.setItem("winerieslist", JSON.stringify(mywineriesdata));
+          var wineriesSource = new ol.source.Vector({
+            features:(new ol.format.GeoJSON()).readFeatures(data,{
+              dataProjection: 'EPSG:4326',
+              featureProjection: 'EPSG:3857'
+            })
+          });
+          var wineriesLayer= new ol.layer.Vector({  
+            name: "Wineries" ,description:'wineries',style:getStyle,
+            source: wineriesSource,zIndex : 20
+          });
+          map.addLayer(wineriesLayer);
+          var geojsonFormat = new ol.format.GeoJSON();
+          var features = geojsonFormat.readFeatures(data,{dataProjection: 'EPSG:4326',featureProjection: 'EPSG:3857'});
+            wineriesSource.clear();
+            wineriesSource.addFeatures(features);
+        },
+        error: function(request, status, error) {
+          alert(errors[0]);
+        }
+      });
+      var currZoom = map.getView().getZoom();
+      map.on('moveend', function(e) {
+        var newZoom = map.getView().getZoom();
+        if (currZoom != newZoom || newZoom>8) {
+          currZoom = newZoom;
+          map.getLayers().forEach(function(layer) {
+              if(layer.get('description')=='wineries') {map.removeLayer(wineriesLayer);}
+          });
+          bbox=(ol.proj.transform(map.getView().calculateExtent(map.getSize()).splice(0, 2), 'EPSG:3857', 'EPSG:4326')).concat(ol.proj.transform(map.getView().calculateExtent(map.getSize()).splice(2, 4), 'EPSG:3857', 'EPSG:4326'));
+          wineriesurl='https://app.wineroutes.eu/wineriesgeodata?bbox1='+bbox[0]+'&bbox2='+bbox[1]+'&bbox3='+bbox[2]+'&bbox4='+bbox[3]+'&zoom='+map.getView().getZoom();
+          $.ajax({
+            type:'POST',url:wineriesurl,cache:false,dataType:'json',
+            success: function(data) {
+              styleCache = {};
+              sessionStorage.setItem("wineriesgeodata", JSON.stringify(data));
+              var mywineriesdata = [];
+              JSON.parse(sessionStorage.wineriesgeodata).features.forEach(function(val) {  
+                mywineriesdata.push(val.properties);
+              });
+              sessionStorage.setItem("winerieslist", JSON.stringify(mywineriesdata));
+              wineriesSource = new ol.source.Vector({
+                features:(new ol.format.GeoJSON()).readFeatures(data,{
+                  dataProjection: 'EPSG:4326',
+                  featureProjection: 'EPSG:3857'
+                })
+              });
+              wineriesLayer= new ol.layer.Vector({  
+                name: names[3],description:'wineries',style:getStyle,
+                source: wineriesSource,zIndex : 20
+              });
+              map.addLayer(wineriesLayer);
+              var geojsonFormat = new ol.format.GeoJSON();
+              var features = geojsonFormat.readFeatures(data,{dataProjection: 'EPSG:4326',featureProjection: 'EPSG:3857'});
+                wineriesSource.clear();
+                wineriesSource.addFeatures(features);
+              document.getElementById("progress").style.display = "none";
+            },
+            error: function(request, status, error) {
+              alert(errors[0]);
+              document.getElementById("progress").style.display = "none";
+            }
+          });
+        }
+      });
     };
     var names;
     var greeknames=["Αρχική","Χαρακτηριστικά","Βιβλία","Σεμινάρια","Επικοινωνία","Wine Routes","Οι δικοί σας Δρόμοι του Κρασιού","'Ο καθρέφτης αντικατοπτρίζει τη μορφή και το κρασί το νου.' - Αισχύλος","Χαρακτηριστικά","Δείτε όλες τις λειτουργίες της εφαρμογής.","Όλα τα ελληνικά οινοποιεία","Πλήρης κατάλογος όλων των οινοποιείων στην Ελλάδα","Προτεινόμενες Διαδρομές","Διαδρομές κρασιού όπως προτείνονται από τους Συνδέσμους Οινοποιών","Αξιολόγηση οινοποιείων","Μπορείτε να παραθέσετε την εμπειρία σας σε ένα οινοποιείο και να το αξιολογήσετε.","Σχεδιασμός προσωπικών διαδρομών","Μπορείτε να σχεδιάσετε τις δικές σας διαδρομές και να τις αποθηκεύσετε για μελλοντικά ταξίδια.","Αμπελώνες","Ανακαλύψτε τους αμπελώνες της Ελλάδας.","GPS","Αξιοποιήστε το GPS για να σχεδιάσετε διαδρομή από τη θέση σας.","Κατεβάστε την εφαρμογή","Δωρεάν λήψη της εφαρμογής","ΛΗΨΗ ΕΦΑΡΜΟΓΗΣ","'Εν οίνω αλήθεια.' - Αλκαίος","Βιβλία για τη διαδρομή","Eπιλέξτε βιβλία που θα σας κάνουν συντροφιά στη διαδρομή σας","Σεμινάρια για προετοιμασία","Eπιλέξτε σεμινάρια που θα ενισχύσουν τις γνώσεις σας πάνω στον οίνο","Επικοινωνία","Για ό,τι χρειαστείτε, μπορείτε να επικοινωνήσετε με τους εξής τρόπους","Στείλτε μήνυμα","Το μήνυμά σας έχει σταλεί. Ευχαριστούμε!","Αδυναμία αποστολής!","Αποστολή","Επισκεφθείτε μας","Φωτογραφίες","Πάρτε μια ματιά της εφαρμογής",
@@ -174,6 +333,13 @@
         <div class="cta-info text-center">
           <h3 id="saying1"></h3>
         </div>
+      </div>
+    </div>
+  </section>
+  <section id="mapsection">
+    <div class="container">
+      <div class="row">
+        <div id="mylayers" class="map" style="width:100%;" ></div>
       </div>
     </div>
   </section>
