@@ -10,7 +10,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   overflow-x: hidden;
 }
-
 ol, ul {
   list-style: none;
 }
@@ -46,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 .main-header {
   background: url(../img/banner.jpg) no-repeat;
   background-size: cover;
-  min-height: 610px;
+  min-height: 300px;
 }
 
 .bg-color {

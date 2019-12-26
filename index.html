@@ -7,12 +7,17 @@
   <title>Wine Routes</title>
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords" content="wine, wineroutes, wineries, winery, agristats, agriculture, wine tasting">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <link rel="icon" href="img/icon.png">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/animate.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/ol.css">
+  <link type="text/css" rel="stylesheet" href="css/ol-ext.min.css">
+  <script src="js/ol.js" type="text/javascript"></script>
+  <script defer src="js/ol-ext.min.js" type="text/javascript"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101173631-2"></script>
   <script>
@@ -58,8 +63,9 @@
         document.getElementById('header1').innerHTML=names[0];
         document.getElementById('header2').innerHTML=names[1];
         document.getElementById('header3').innerHTML=names[37];
-        document.getElementById('header4').innerHTML=names[2];
+        document.getElementById('header4').innerHTML=names[46];
         document.getElementById('header6').innerHTML=names[4];
+        document.getElementById('header7').innerHTML=names[47];
         document.getElementById('title1').innerHTML=names[5];
         document.getElementById('title2').innerHTML=names[6];
         document.getElementById('saying1').innerHTML=names[7];
@@ -95,17 +101,17 @@
         document.getElementById('contact1').innerHTML=names[30];
         document.getElementById('contact2').innerHTML=names[31];
         document.getElementById('contact5').innerHTML=names[36];
-        //document.getElementById('sales5').innerHTML=names[45];
-        //document.getElementById('sales6').innerHTML=names[46];
+        document.getElementById('sales5').innerHTML=names[45];
+        document.getElementById('sales6').innerHTML=names[46];
       };
     };
     var names;
-    var greeknames=["ΑΡΧΙΚΗ","ΧΑΡΑΚΤΗΡΙΣΤΙΚΑ","ΒΙΒΛΙΑ","ΣΕΜΙΝΑΡΙΑ","ΕΠΙΚΟΙΝΩΝΙΑ","Wine Routes","ΟΙ ΔΙΚΟΙ ΣΑΣ ΔΡΟΜΟΙ ΤΟΥ ΚΡΑΣΙΟΥ","'Ο καθρέφτης αντικατοπτρίζει τη μορφή και το κρασί το νου.' - Αισχύλος","Χαρακτηριστικά","Δείτε όλες τις λειτουργίες της εφαρμογής.","Όλα τα ελληνικά οινοποιεία","Πλήρης κατάλογος όλων των οινοποιείων στην Ελλάδα","Προτεινόμενες Διαδρομές","Διαδρομές κρασιού όπως προτείνονται από τους Συνδέσμους Οινοποιών","Αξιολόγηση οινοποιείων","Μπορείτε να παραθέσετε την εμπειρία σας σε ένα οινοποιείο και να το αξιολογήσετε.","Σχεδιασμός προσωπικών διαδρομών","Μπορείτε να σχεδιάσετε τις δικές σας διαδρομές και να τις αποθηκεύσετε για μελλοντικά ταξίδια.","Αμπελώνες","Ανακαλύψτε τους αμπελώνες της Ελλάδας.","GPS","Αξιοποιήστε το GPS για να σχεδιάσετε διαδρομή από τη θέση σας.","Κατεβάστε την εφαρμογή","Δωρεάν λήψη της εφαρμογής","ΛΗΨΗ ΕΦΑΡΜΟΓΗΣ","'Εν οίνω αλήθεια.' - Αλκαίος","Βιβλία για τη διαδρομή","Eπιλέξτε βιβλία που θα σας κάνουν συντροφιά στη διαδρομή σας","Σεμινάρια για προετοιμασία","Eπιλέξτε σεμινάρια που θα ενισχύσουν τις γνώσεις σας πάνω στον οίνο","Επικοινωνία","Για ό,τι χρειαστείτε, μπορείτε να επικοινωνήσετε με τους εξής τρόπους","Στείλτε μήνυμα","Το μήνυμά σας έχει σταλεί. Ευχαριστούμε!","Αδυναμία αποστολής!","Αποστολή","Επισκεφθείτε μας","ΦΩΤΟΓΡΑΦΙΕΣ","Φωτογραφίες","Πάρτε μια ματιά της εφαρμογής",
+    var greeknames=["Αρχική","Χαρακτηριστικά","Βιβλία","Σεμινάρια","Επικοινωνία","Wine Routes","Οι δικοί σας Δρόμοι του Κρασιού","'Ο καθρέφτης αντικατοπτρίζει τη μορφή και το κρασί το νου.' - Αισχύλος","Χαρακτηριστικά","Δείτε όλες τις λειτουργίες της εφαρμογής.","Όλα τα ελληνικά οινοποιεία","Πλήρης κατάλογος όλων των οινοποιείων στην Ελλάδα","Προτεινόμενες Διαδρομές","Διαδρομές κρασιού όπως προτείνονται από τους Συνδέσμους Οινοποιών","Αξιολόγηση οινοποιείων","Μπορείτε να παραθέσετε την εμπειρία σας σε ένα οινοποιείο και να το αξιολογήσετε.","Σχεδιασμός προσωπικών διαδρομών","Μπορείτε να σχεδιάσετε τις δικές σας διαδρομές και να τις αποθηκεύσετε για μελλοντικά ταξίδια.","Αμπελώνες","Ανακαλύψτε τους αμπελώνες της Ελλάδας.","GPS","Αξιοποιήστε το GPS για να σχεδιάσετε διαδρομή από τη θέση σας.","Κατεβάστε την εφαρμογή","Δωρεάν λήψη της εφαρμογής","ΛΗΨΗ ΕΦΑΡΜΟΓΗΣ","'Εν οίνω αλήθεια.' - Αλκαίος","Βιβλία για τη διαδρομή","Eπιλέξτε βιβλία που θα σας κάνουν συντροφιά στη διαδρομή σας","Σεμινάρια για προετοιμασία","Eπιλέξτε σεμινάρια που θα ενισχύσουν τις γνώσεις σας πάνω στον οίνο","Επικοινωνία","Για ό,τι χρειαστείτε, μπορείτε να επικοινωνήσετε με τους εξής τρόπους","Στείλτε μήνυμα","Το μήνυμά σας έχει σταλεί. Ευχαριστούμε!","Αδυναμία αποστολής!","Αποστολή","Επισκεφθείτε μας","Φωτογραφίες","Πάρτε μια ματιά της εφαρμογής",
       "ΛΗΨΗ ΑΠΟ Google Play","ΛΗΨΗ ΑΠΟ Aptoide","ΛΗΨΗ ΑΠΟ Slideme","ΛΗΨΗ ΑΠΟ GetJar","ΛΗΨΗ ΑΠΟ UptoDown","Αξεσουάρ για οινόφιλους",
-      "Ανακαλύψτε αξεσουάρ για εμπειρίες οινογευσίας και διακόσμηση","ΑΞΕΣΟΥΑΡ"];
-    var englishnames=["Home","Features","Books","Courses","Contact","Wine Routes","YOUR OWN WINE ROUTES","'Mirror reflects the shape and wine the mind.' - Aeschylus","Features","Check out the application's characteristics.","View all wineries in Greece","Full list of wineries in Greece","Recommended routes","Wine routes as recommended from Wineries Associations","Rating wineries","You can tell about your experience with a winery and rate it.","Design your own routes","You can design your own routes and save them for future trips.","Vineyards","Discover Greek vineyards.","GPS","Use GPS to design a route from your position.","Download available","Free app download","Download now","'In wine the truth.' - Alcaeus","Books for the road","Select books that will keep you company through your trip","Courses to prepare","Select courses that will strengthen your knowledge on wine","Contact","For anything you may need, you can contact through these channels","Email Us","Your message has been sent. Thank you!","Can't send","Send","Visit Us","MEDIA","Media","Take a look at the application",
+      "Διαλέξτε από μια ποικιλία βιβλίων και μάθετε τα πάντα για το κρασί","Βιβλία","Σύνδεση Οινοποιείου"];
+    var englishnames=["Home","Features","Books","Courses","Contact","Wine Routes","YOUR OWN WINE ROUTES","'Mirror reflects the shape and wine the mind.' - Aeschylus","Features","Check out the application's characteristics.","View all wineries in Greece","Full list of wineries in Greece","Recommended routes","Wine routes as recommended from Wineries Associations","Rating wineries","You can tell about your experience with a winery and rate it.","Design your own routes","You can design your own routes and save them for future trips.","Vineyards","Discover Greek vineyards.","GPS","Use GPS to design a route from your position.","Download available","Free app download","Download now","'In wine the truth.' - Alcaeus","Books for the road","Select books that will keep you company through your trip","Courses to prepare","Select courses that will strengthen your knowledge on wine","Contact","For anything you may need, you can contact through these channels","Email Us","Your message has been sent. Thank you!","Can't send","Send","Visit Us","Media","Take a look at the application",
       "Download from Google Play","Download from Aptoide","Download from Slideme","Download from GetJar","Download from UptoDown",
-      "Accessories for wine lovers","Discover accessories for wine tasting experiences and decoration","ACCESSORIES"
+      "Accessories for wine lovers","Choose from a wide book collection and learn all about wine","Books","Winery Login"
     ];
   </script>
   <style>
@@ -141,6 +147,7 @@
                 <li><a href="#photos" id="header3"></a></li>
                 <li><a href="#winestuff" id="header4"></a></li>
                 <li><a href="#contact" id="header6"></a></li>
+                <li><a href="wineryadmin.html" target="_blank" id="header7"></a></li>
                 <li><img id="greek" width="75%" height="50%" src="img/gr.png" alt="Ελληνικά"/></li>
                 <li><img id="english" width="70%" height="50%" src="img/en.png" alt="English"/></li>
               </ul>
@@ -244,46 +251,46 @@
   <section class="section-padding wow fadeInUp" id="photos">
     <div class="container">
       <div class="row">
-        <div class="col-md-3 wow fadeInLeft">
+        <div class="col-md-3 col-xs-3 wow fadeInLeft">
           <div class="section-title">
             <h2 class="head-title" id="char18"></h2>
             <hr class="botm-line">
             <p class="sec-para" id="char19"></p>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot1" width="75%" height="50%" src="img/screenshot_1.png" alt="Ελληνικά"/>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot2" width="75%" height="50%" src="img/screenshot_2.png" alt="Ελληνικά"/>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot3" width="75%" height="50%" src="img/screenshot_3.png" alt="Ελληνικά"/>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <a href='https://play.google.com/store/apps/details?id=com.phonegap.wineroutes&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width="100%" height="100%" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot4" width="75%" height="50%" src="img/screenshot_4.png" alt="Ελληνικά"/>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot6" width="75%" height="50%" src="img/screenshot_6.png" alt="Ελληνικά"/>
           </div>
         </div>
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-3 col-xs-3">
           <div class="section-title">
             <img id="screenshot7" width="75%" height="50%" src="img/screenshot_7.png" alt="Ελληνικά"/>
           </div>
@@ -293,16 +300,27 @@
   </section>
   <!---->
   <!---->
-  <section class="section-padding parallax bg-image-2 section wow fadeIn" id="cta-2">
-    <div class="container text-center">
-      <script type="text/javascript" src="http://cdn.refersion.com/creative.js"></script>
-      <script>$rfsn_creative.generate('refersion_client/9975/creatives/dynamic/22075-5a408dc42bdf54dea7d3f878d38adc92.json', {
-        aid: '3180637.8a5c478'
-      });</script><div id="rfsn_img_22075"></div>
+  <section id="winestuff" class="section-padding parallax bg-image-2 section wow fadeIn" id="cta-2">
+    <div class="container text-center"> 
     </div>
-
   </section>
   <!---->
+  <section class="section-padding wow fadeInUp" id="books">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title" id="sales6"></h2>
+            <hr class="botm-line">
+            <p class="sec-para" id="sales5"></p>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <script type="text/javascript" language="javascript" src="http://www.ftjcfx.com/widget-5ddeb8faf8fef68e808df479-100003902?target=_top&mouseover=Y"></script>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="section-padding wow fadeInUp" id="courses">
     <div class="container">
       <div class="row">
